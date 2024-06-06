@@ -1,0 +1,25 @@
+<div class="cats-popup">
+    <div class="cats-popup-header">
+        <span class="cats-popup-title">Iniciar monitoreo</span>
+        <mat-icon class="cats-popup-header-icon" fontIcon="close" matTooltip="Cerrar" (click)="closeDialog(false)"></mat-icon>
+    </div>
+    <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar()"></mat-progress-bar>
+    <form [formGroup]="form" class="default-form-container">
+        <div class="default-form-container-column-container">
+            <mat-label class="default-form-container-column-container-label">Filtro</mat-label>
+            <mat-form-field appearance="outline" class="default-form-container-column-container-input">
+                <input matInput formControlName="filter" (keydown.enter)="onFilter()">
+                <mat-icon matSuffix (click)="onFilter()" class="cats-popup-icon-search">search</mat-icon>
+                <mat-error class="default-form-container-column-container-input-error" align="end" *ngIf="form.controls['filter'].hasError('required')">
+                    Debe ingresar el filtro
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="cats-popup-response-container-scroll">
+        <div class="cats-popup-response-container" *ngFor="let item of breedDetail">
+            <label class="cats-popup-response"><span class="cats-popup-response-title">{{ item.name }}</span></label>
+            <label class="cats-popup-response">{{ item.description }}</label>
+        </div>
+    </div>
+</div>

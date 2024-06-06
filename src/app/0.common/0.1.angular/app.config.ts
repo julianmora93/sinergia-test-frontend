@@ -11,7 +11,9 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { UTIL_DATE_FORMAT } from '../../3.transversal/3.1.util/util.date.format';
 import { AlertSnackbarComponent } from '../../1.view/1.0.component/alert.snackbar.component/alert.snackbar.component';
 import { CustomHttpInterceptor } from '../../2.repository/2.0.common/custom.http.interceptor';
-import CollisionsPage from '../../1.view/1.1.pages/collision.page/collision.page';
+import CatsPage from '../../1.view/1.1.pages/cats.page/cats.page';
+import { graphqlProvider } from '../../../base/app/graphql.provider';
+import CatsPopup from '../../1.view/1.0.component/cats.popup/cats.popup';
 
 export const appConfig: ApplicationConfig = {
     providers: [{ 
@@ -33,7 +35,8 @@ export const appConfig: ApplicationConfig = {
         NgxSpinnerModule,
         AppProviderRepository,
         RootPage,
-        CollisionsPage,
-        AlertSnackbarComponent
+        CatsPage,
+        CatsPopup,
+        AlertSnackbarComponent, provideHttpClient(), graphqlProvider
     ]
 };

@@ -1,4 +1,4 @@
-import { Component, WritableSignal, inject, signal } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, WritableSignal, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
@@ -15,11 +15,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertSnackbarComponent } from '../../1.0.component/alert.snackbar.component/alert.snackbar.component';
 import { UtilDefaultAlertSnackbarDuration } from '../../../3.transversal/3.1.util/util.constant';
 import { AlertSnackbarTypeEnumEntity } from '../../../3.transversal/3.0.entity/alert.snackbar.entity';
-import { ContractNetworkingCollisionOutput } from '../../../2.repository/2.1.contract/contract.networking.collision';
-import { NetworkingCollision } from '../../../2.repository/2.3.networking/networking.collision';
+import { ContractNetworkingCatsByIdOutput, ContractNetworkingCatsOutput } from '../../../2.repository/2.1.contract/contract.networking.cats';
+import { NetworkingGql } from '../../../2.repository/2.3.networking/networking.gql';
+import { BreedCompositeDto, BreedDto } from '../../../3.transversal/3.5.dto/breed.dto';
+import CatsPopup from '../../1.0.component/cats.popup/cats.popup';
 
 @Component({
-    selector: 'products-page-list',
+    selector: 'cats-page',
     standalone: true,
     imports: [
         CommonModule,
@@ -37,52 +39,73 @@ import { NetworkingCollision } from '../../../2.repository/2.3.networking/networ
         AlertSnackbarComponent,
         MatProgressBarModule
     ],
-    templateUrl: './collision.page.html',
-    styleUrl: './collision.page.scss'
+    templateUrl: './cats.page.html',
+    styleUrl: './cats.page.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export default class CollisionsPage implements ContractNetworkingCollisionOutput {
+export default class CatsPage implements ContractNetworkingCatsOutput, ContractNetworkingCatsByIdOutput {
 
     showProgressBar: WritableSignal<boolean> = signal(false);
-    responseText: WritableSignal<string> = signal('');
+    responseText: WritableSignal<string> = signal('Holis');
+    breedDetail: WritableSignal<BreedCompositeDto | null> = signal(null);
+    breedList: BreedDto[] = [];
 
     private _rootPage: RootPage = inject(RootPage);
     private _formBuilder: FormBuilder = inject(FormBuilder);
     private _dialog: MatDialog = inject(MatDialog);
     private _snackBar: MatSnackBar = inject(MatSnackBar);
-    private _regex: RegExp = /^[RL]*$/;
-    private _networkingCollision: NetworkingCollision = inject(NetworkingCollision);
+    private _networkingGql: NetworkingGql = inject(NetworkingGql);
 
     form: FormGroup = this._formBuilder.group({
-        sequence: new FormControl('', [Validators.required, Validators.pattern(this._regex)])
+        breed: new FormControl('', Validators.required)
     });
 
     constructor(){
-        this._networkingCollision.executionOutput = this;
-        this._rootPage.rootTitle = 'Collisions';
+        this._networkingGql.getAllOutput = this;
+        this._networkingGql.getByIdOutput = this;
+        this._rootPage.rootTitle = 'Gatos';
         this._rootPage.setMenuById(2);
+        
+        this.showProgressBar.set(true);
+        this._networkingGql.getAll();
     }
 
     onExecute(){
         this.form.markAllAsTouched();
         if(this.form.valid){
             this.showProgressBar.set(true);
-            this._networkingCollision.execution(this.form.value.sequence);
+            this._networkingGql.getById(this.form.value.breed);
         }
     }
 
-    onInput(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        const transformedValue = input.value.toUpperCase().replace(/[^RL]/g, '');
-        this.form.get('sequence')?.setValue(transformedValue, { emitEvent: false });
+    openDialog(){
+        this._dialog.open(CatsPopup);
     }
 
-    executionSuccessful(data: string): void {
+    getAllSuccessful(data: BreedDto[]): void {
         this.showProgressBar.set(false);
-        this.responseText.set(`Collisions: ${data}`);
+        this.breedList = data;
     }
-    executionFailure(message: string, type: AlertSnackbarTypeEnumEntity): void {
+    
+    getAllFailure(message: string, type: AlertSnackbarTypeEnumEntity): void {
         this.showProgressBar.set(false);
-        this.responseText.set('');
+        this._snackBar.openFromComponent(AlertSnackbarComponent, {
+            duration: UtilDefaultAlertSnackbarDuration,
+            data: {
+                buttonText: 'OK',
+                dialogType: type,
+                informationText: message
+            }
+        });
+    }
+
+    getByIdSuccessful(data: BreedCompositeDto): void {
+        this.showProgressBar.set(false);
+        this.breedDetail.set(data);
+    }
+
+    getByIdFailure(message: string, type: AlertSnackbarTypeEnumEntity): void {
+        this.showProgressBar.set(false);
         this._snackBar.openFromComponent(AlertSnackbarComponent, {
             duration: UtilDefaultAlertSnackbarDuration,
             data: {

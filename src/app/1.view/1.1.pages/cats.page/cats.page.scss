@@ -1,4 +1,4 @@
-.collision-page-header{
+.cats-page-header{
     width: calc(100% - 10px);
     height: 40px;
     background-color: var(--color-0);
@@ -7,7 +7,7 @@
     border-bottom: solid 1px var(--secundary-4);
 }
 
-.collision-page-header-title{
+.cats-page-header-title{
     flex: 1;
     font-size: 18px;
     color: var(--font-color-2);
@@ -16,22 +16,41 @@
     padding-left: 20px;
 }
 
-.collision-page-execute{
+.cats-page-execute{
     width: 300px;
     margin-left: 20px;
 }
 
-input.collision-page-input{
+input.cats-page-input{
     text-transform: uppercase;
 }
 
-.collision-page-response{
-    font-size: 18px;
+.cats-page-response{
+    font-size: 16px;
     color: var(--font-color-2);
-    font-family: Nekst-Medium;
+    font-family: Nekst-Light;
     display: block;
-    margin: 30px 20px 0px 20px;
+    margin: 10px 20px 0px 20px;
     overflow-x: auto;
     border-top: solid 1px var(--button-border-cancel-color);
-    padding-top: 20px;
+    padding-top: 10px;
+}
+
+.cats-page-response-title{
+    font-family: Nekst-Medium;
+}
+
+.cats-page-response-image{
+    width: 240px;
+    height: auto;
+    margin: 10px 0px 25px 20px;
+    border-radius: 5px;
+}
+
+.cats-popup-header-icon{
+    margin: 3px 10px 7px 0px;
+    width: 35px;
+    height: 35px;
+    font-size: 35px;
+    cursor: pointer;
 }

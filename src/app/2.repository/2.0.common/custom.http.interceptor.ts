@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpInterceptor, Htt
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, timeout } from 'rxjs/operators';
 import { LocalAuth } from '../2.2.local/local.auth';
-import { DefaultWsResponse } from '../../3.transversal/3.0.entity/default.webservice.response.entity';
+import { DefaultWsResponseEntity } from '../../3.transversal/3.0.entity/default.webservice.response.entity';
 import { UtilMessages } from '../../3.transversal/3.1.util/util.labels';
 import { environment } from '../../../environments/environment';
 
@@ -39,7 +39,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
                 if(event instanceof HttpResponse){
                     try{
                         this.showLog('CustomHttpInterceptor[004]: event => ', event.body);
-                        let objReturn: DefaultWsResponse<any> = event.body;
+                        let objReturn: DefaultWsResponseEntity<any> = event.body;
                         return event.clone({
                             body: objReturn
                         });

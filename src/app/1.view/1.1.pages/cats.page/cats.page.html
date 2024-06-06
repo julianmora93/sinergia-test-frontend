@@ -1,0 +1,41 @@
+<div class="default-container">
+    <div class="cats-page-header">
+        <span class="cats-page-header-title">Información de Gatos</span>
+        <mat-icon class="cats-popup-header-icon" fontIcon="search" matTooltip="Filtrar" (click)="openDialog()"></mat-icon>
+    </div>
+    <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar()"></mat-progress-bar>
+    <form [formGroup]="form" class="default-form-container">
+        <div class="default-form-container-column-container">
+            <div class="default-form-container-column-container">
+                <mat-label class="default-form-container-column-container-label">Razas</mat-label>
+                <mat-form-field appearance="outline" class="default-form-container-column-container-input">
+                    <mat-select formControlName="breed">
+                        <mat-option *ngFor="let item of breedList" [value]="item.id">
+                            {{ item.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error class="default-form-container-column-container-input-error" align="end" *ngIf="form.controls['breed'].hasError('required')">
+                        Debe seleccionar una raza
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="default-form-container-column-container">
+                <button mat-raised-button color="primary" class="default-btn-accept cats-page-execute" [disabled]="showProgressBar()" (click)="onExecute()">Ver detalle</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div *ngIf="breedDetail()">
+        <label class="cats-page-response"><span class="cats-page-response-title">Nombre: </span>{{ breedDetail()!.getById!.name }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Temperamento: </span>{{ breedDetail()!.getById!.temperament }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Origen: </span>{{ breedDetail()!.getById!.origin }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Descripción: </span>{{ breedDetail()!.getById!.description }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Nivel de energía: </span>{{ breedDetail()!.getById!.energy_level }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Inteligencia: </span>{{ breedDetail()!.getById!.intelligence }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Necesidades sociales: </span>{{ breedDetail()!.getById!.social_needs }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Sin pelo: </span>{{ breedDetail()!.getById!.hairless }}</label>
+        <label class="cats-page-response"><span class="cats-page-response-title">Esperanza de vida: </span>{{ breedDetail()!.getById!.life_span }}</label>
+        <br>
+        <img [src]="breedDetail()!.getImageById![0].url" class="cats-page-response-image">
+    </div>
+</div>

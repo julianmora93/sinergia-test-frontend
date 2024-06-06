@@ -1,0 +1,72 @@
+.cats-popup{
+    width: 35vw;
+    height: auto;
+    min-width: 200px;
+    min-height: 400px;
+    max-height: 80vh;
+    background-color: var(--black-0);
+    border: solid 1px var(--green-1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.cats-popup-header{
+    width: calc(100% - 10px);
+    height: 40px;
+    background-color: var(--black-0);
+    padding: 5px;
+    display: flex;
+    border-bottom: solid 1px var(--secundary-4)
+}
+
+.cats-popup-title{
+    flex: 1;
+    font-size: 18px;
+    color: var(--green-1);
+    font-family: Nekst-Medium;
+    line-height: 38px;
+    padding-left: 20px;
+}
+
+.cats-popup-header-icon{
+    color: var(--green-1);
+    width: 20px;
+    height: 20px;
+    border: solid 1px var(--green-1);
+    border-radius: 18px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 21px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cats-popup-icon-search{
+    cursor: pointer;
+}
+
+.cats-popup-response-container{
+    border-top: solid 1px var(--button-border-cancel-color);
+    margin-bottom: 10px;
+}
+
+.cats-popup-response{
+    font-size: 16px;
+    color: var(--font-color-2);
+    font-family: Nekst-Light;
+    display: block;
+    margin: 5px 0px 0px 10px;
+    overflow-x: auto;
+    padding-top: 10px;
+}
+
+.cats-popup-response-title{
+    font-family: Nekst-Medium;
+}
+
+.cats-popup-response-container-scroll{
+    overflow-y: auto;
+    flex: 1;
+}

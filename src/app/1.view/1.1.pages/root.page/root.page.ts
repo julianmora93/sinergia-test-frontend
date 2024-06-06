@@ -50,18 +50,18 @@ export class RootPage {
         }
         this.dataMenu.data = [{
             Id: 0,
-            Name: 'Main',
+            Name: 'Inicio',
             IsSelected: false,
             Icon: 'home_filled',
             Color: 'transparent',
             Url: '/'
         },{
             Id: 2,
-            Name: 'Collisions',
+            Name: 'Gatos',
             IsSelected: false,
-            Icon: 'online_prediction',
+            Icon: 'pets',
             Color: 'transparent',
-            Url: '/collision'
+            Url: '/cats'
         }];
     }
 

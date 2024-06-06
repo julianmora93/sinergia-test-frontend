@@ -12,7 +12,7 @@ import { RootPage } from '../root.page/root.page';
 export default class StartPage {
 
     constructor(@Inject(RootPage) _rootPage: RootPage){
-        _rootPage.rootTitle = 'Main';
+        _rootPage.rootTitle = 'Inicio';
         _rootPage.setMenuById(0);
     }
 

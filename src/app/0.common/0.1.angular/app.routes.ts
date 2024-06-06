@@ -9,8 +9,8 @@ export const routes: Routes = [{
     'path': 'login', 
     loadComponent: () => import('./../../1.view/1.1.pages/login.page/login.page')
 },{
-    path: 'collision',
-    loadComponent: () => import('./../../1.view/1.1.pages/collision.page/collision.page')
+    path: 'cats',
+    loadComponent: () => import('../../1.view/1.1.pages/cats.page/cats.page')
 },{ 
     path: '**', 
     redirectTo: '' 
